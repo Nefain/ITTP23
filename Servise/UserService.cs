@@ -17,6 +17,7 @@ namespace ITTP23.Servise
             _context = context;
         }
 
+        // POST
         public async Task<User> CreateAsync(User editor, UserDTO newUser)
         {
             if(editor == null)
@@ -65,6 +66,8 @@ namespace ITTP23.Servise
             return user;
         }
 
+        //DELETE
+
         public async Task<User> DeleteHardAsync(User editor, string login)
         {
             if (editor == null)
@@ -103,6 +106,8 @@ namespace ITTP23.Servise
 
             return user;
         }
+
+        //GET
 
         public async Task<IEnumerable<User>> GetAllActiveUsersAsync(User editor)
         {
@@ -186,6 +191,8 @@ namespace ITTP23.Servise
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.Token == token);
         }
+
+        //PUT
 
         public async Task<User> UpdateAsync(User editor, string? login, string name, int? gender, DateTime? birthday)
         {

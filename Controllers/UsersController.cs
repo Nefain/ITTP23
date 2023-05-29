@@ -31,7 +31,8 @@ namespace ITTP23.Controllers
             _service = service;
         }
 
-        // GET
+        // READ
+
         [HttpGet("GetToken")]
         [SwaggerOperation(Summary = "Запрос токена", Description = "Создание токена, если его нет у пользователя, если есть, то возвращает уже имеющийся токен")]
         [SwaggerResponse(200, "OK", typeof(IEnumerable<List<User>>))]
@@ -115,7 +116,8 @@ namespace ITTP23.Controllers
             }
         }
 
-        // POST
+        // CREATE
+
         [HttpPost("Create")]
         [SwaggerOperation(Summary = "Создание пользователя", Description = "Создание пользователя по логину, паролю, имени, полу и дате рождения + указание будет ли пользователь админом (Доступно Админам)")]
         [SwaggerResponse(200, "OK", typeof(IEnumerable<User>))]
@@ -133,7 +135,8 @@ namespace ITTP23.Controllers
             }
         }
 
-        // PUT
+        // UPDATE - 1
+
         [HttpPut("UpdateUser")]
         [SwaggerOperation(Summary = "Изменение имени, пола или даты рождения пользователя", Description = "Может менять Администратор, либо лично пользователь, если он активен (отсутствует RevokedOn))")]
         [SwaggerResponse(200, "OK", typeof(IEnumerable<User>))]
@@ -185,6 +188,8 @@ namespace ITTP23.Controllers
             }
         }
 
+        // UPDATE - 2
+
         [HttpPut("UserRecovery")]
         [SwaggerOperation(Summary = "Восстановление пользователя", Description = "Очистка полей (RevokedOn, RevokedBy) (Доступно Админам)")]
         [SwaggerResponse(200, "OK", typeof(IEnumerable<User>))]
@@ -201,6 +206,8 @@ namespace ITTP23.Controllers
                return BadRequest(new MessageError() { Code = BadRequest().StatusCode, Message = ex.Message, Type = ex.GetType().Name }); //Возвращение ошибки
             }
         }
+
+        // DELETE
 
         [HttpPut("DeleteSoft")]
         [SwaggerOperation(Summary = "Мягкое удаление(Блокировка)", Description = "Происходит простановка RevokedOn и RevokedBy")]
@@ -219,7 +226,6 @@ namespace ITTP23.Controllers
             }
         }
 
-        // DELETE
         [HttpDelete("DeleteHard")]
         [SwaggerOperation(Summary = "Полное удаление", Description = "Пользователь полностью удаляется из базы данных")]
         [SwaggerResponse(200, "OK", typeof(IEnumerable<User>))]
